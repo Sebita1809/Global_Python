@@ -20,23 +20,26 @@ class Detector:
                 else:
                     encontrar_mutante = 0
                 incremento += 1
-                mutante = 1 if encontrar_mutante >= 4 else 0
+                mutante += 1 if encontrar_mutante >= 4 else 0
         return True if mutante > 0 else False
     
     def mutante_vertical(ADN):
         mutante = 0
         columna = []
         encontrar_mutante = 0
+        incrementador = 0
         for i in range(0 , len(ADN)):
-            columna.append(ADN[i][i])
+            columna.append(ADN[i][incrementador])
             if len(columna) == 6:
+                incrementador += 1
+                i = incrementador
                 for j in range(0, len(columna)-1):
                     incremento = 1
-                    if columna[j] == columna[j+1]:
+                    if columna[j] == columna[incremento]:
                         encontrar_mutante += 1
                     else:
                         encontrar_mutante = 0
                     incremento += 1
-                    mutante = 1 if encontrar_mutante >= 4 else 0
+                    mutante += 1 if encontrar_mutante >= 4 else 0
         return True if mutante > 0 else False
 

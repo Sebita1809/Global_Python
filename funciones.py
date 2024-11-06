@@ -1,5 +1,6 @@
 def inicializar_menu():
-    print("Ingrese el numero de la operacion que desea realizar")
+    print("Bienvenido a nuestro programa")
+    print("Por favor ingrese una opcion")
     print("""
             1 - Ingresar ADN
             2 - Detectar mutante
@@ -7,6 +8,18 @@ def inicializar_menu():
             4 - Sanar ADN
             5 - Salir
         """)
+
+def mostrar_matriz_ejemplo():
+    print("Le recordamos que el formato general del ADN es asi:")
+    print("""
+            A A A A A A -> fila 1
+            A A A A A A -> fila 2
+            A A A A A A -> fila 3
+            A A A A A A -> fila 4
+            A A A A A A -> fila 5
+            A A A A A A -> fila 6
+        """)
+    print("Recuerde que las celulas nitrogenadas que conforman el ADN son: 'A' 'C' 'T' 'G'")
 
 def verificar_adn(ADN):
     celulas_nitrogenadas = "ACTG"
@@ -24,5 +37,5 @@ def verificar_adn(ADN):
                     print(f"La letra {letra} no corresponde una celula nitrogenada")
                     verificador = 1
                     break
-            print("Será redirigido nuevamente al menú") if verificador > 0 else print("Su ADN se ha registrado correctamente")
-            return[] if verificador > 0 else ADN
+        print("Por favor ingrese nuevamente el ADN") if verificador > 0 else print("Su ADN se ha registrado correctamente")
+        return [] if verificador > 0 else ADN
