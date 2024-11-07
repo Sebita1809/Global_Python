@@ -1,7 +1,7 @@
 from funciones import *
 from Clases import *
 lista_ADN = {}
-##actggg,gagggg,ggaggg,gggagg,gggggg,gggggg
+##aaaaaa,gggggg,cccccc,tttttt,gggggg,cccccc
 ##actggg,aggggg,aggggg,aggggg,gggggg,gggggg
 ##actggg,aggggg,gggggg,gggggg,gggggg,gggggg
 ##actggg,cggggg,aggggg,aggggg,cggggg,cggggg
