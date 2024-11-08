@@ -1,5 +1,5 @@
 def inicializar_menu():
-    print("Bienvenido a nuestro programa")
+    print("Bienvenido")
     print("Por favor ingrese una opcion")
     print("""
             1 - Ingresar ADN

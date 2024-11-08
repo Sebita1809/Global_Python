@@ -42,14 +42,13 @@ class Detector:
     def mutante_diagonal1(ADN):
         mutante = 0
         diagonal = []
-        encontrar_mutante = 0
         for columna in range(0, int(len(ADN)/2)):
-            #aaaaaa,gggggg,cccccc,tttttt,gggggg,cccccc
+            #aaaaaa,ggaggg,cccacc,ttttat,ggggga,cccccc
             for fila in range(0, (len(ADN))):
                 if columna == 0:
                     diagonal.append(ADN[fila][fila])
-                    if diagonal[fila][fila] == 
                     if len(diagonal) == 6:
+                        mutante = Detector.verificador(diagonal)
                         print(diagonal)
                         diagonal = []
                 elif columna == 1:
@@ -59,8 +58,8 @@ class Detector:
                         diagonal.append(ADN[fila][columna+1])
                     if len(diagonal) == 5:
                         print(diagonal)
+                        mutante = Detector.verificador(diagonal)
                         diagonal = []
-                        break
                 else:
                     if fila == 0:
                         diagonal.append(ADN[fila][columna])
@@ -69,7 +68,13 @@ class Detector:
                     if len(diagonal) == 4:
                         print(diagonal)
                         break
-        
-
-
-        ##return True if mutante > 0 else False
+        return True if mutante >= 4 else False
+    
+    def verificador (diagonal):
+        encontrar_mutante = 0
+        for i in range(0,len(diagonal)):
+            if i == 0:
+                encontrar_mutante +=1 if diagonal[i] == diagonal[i+1] else 0
+            elif i != 6:
+                encontrar_mutante +=1 if diagonal[i] == diagonal[i-1] else 0
+        return encontrar_mutante
