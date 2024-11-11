@@ -43,32 +43,45 @@ class Detector:
         mutante = 0
         diagonal = []
         for columna in range(0, int(len(ADN)/2)):
-            #aaaaaa,ggaggg,cccacc,ttttat,ggggga,cccccc
+            cl = columna
+            # attttt,gaaggg,ccaacc,tttaat,ggggaa,ccccca
+
+            # tatttt,ggaggg,cccacc,ttttat,ggggga,cccccc
+
+            # ttattt,gggagg,ccccac,ttttta,ggggga,ccccca
             for fila in range(0, (len(ADN))):
                 if columna == 0:
                     diagonal.append(ADN[fila][fila])
                     if len(diagonal) == 6:
-                        mutante = Detector.verificador(diagonal)
+                        mutante += Detector.verificador(diagonal)
                         print(diagonal)
+                        print(mutante)
                         diagonal = []
                 elif columna == 1:
                     if fila == 0:
                         diagonal.append(ADN[fila][columna])
                     else:
-                        diagonal.append(ADN[fila][columna+1])
+                        cl += 1
+                        diagonal.append(ADN[fila][cl])
                     if len(diagonal) == 5:
                         print(diagonal)
-                        mutante = Detector.verificador(diagonal)
+                        mutante += Detector.verificador(diagonal)
+                        print(mutante)
                         diagonal = []
+                        break
                 else:
                     if fila == 0:
                         diagonal.append(ADN[fila][columna])
                     else:
-                        diagonal.append(ADN[fila][columna+1])
+                        cl += 1
+                        diagonal.append(ADN[fila][cl])
                     if len(diagonal) == 4:
                         print(diagonal)
+                        mutante += Detector.verificador(diagonal)
+                        print(mutante)
+                        diagonal = []
                         break
-        return True if mutante >= 4 else False
+        return True if mutante >= 1 else False
     
     def verificador (diagonal):
         encontrar_mutante = 0

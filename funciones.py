@@ -6,7 +6,8 @@ def inicializar_menu():
             2 - Detectar mutante
             3 - Mutar ADN
             4 - Sanar ADN
-            5 - Salir
+            5 - Mostrar ADN
+            6 - Salir
         """)
 
 def mostrar_matriz_ejemplo():

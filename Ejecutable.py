@@ -1,7 +1,7 @@
 from funciones import *
 from Clases import *
 lista_ADN = {}
-##aaaaaa,gggggg,cccccc,tttttt,gggggg,cccccc
+##
 ##actggg,aggggg,aggggg,aggggg,gggggg,gggggg
 ##actggg,aggggg,gggggg,gggggg,gggggg,gggggg
 ##actggg,cggggg,aggggg,aggggg,cggggg,cggggg
@@ -21,14 +21,17 @@ while True:
                 pass
             else:
                 lista_ADN[nombreADN] = ADN_lista
-                print(f"El ADN: {nombreADN} ingresado es {lista_ADN[nombreADN]}]")
+                print("El ADN se ingresó correctamente")
                 break
     elif respuesta == 2:
         nombreADN = input("Ingrese un nombre para el ADN que desea escanear:\n").upper()
         detector = Detector(nombreADN, ADN_lista)
-        mutante_H = Detector.mutante_horizontal(ADN_lista)
-        mutante_V = Detector.mutante_vertical(ADN_lista)
-        mutante_D = Detector.mutante_diagonal1(ADN_lista)
+        mutante_H = Detector.mutante_horizontal(lista_ADN[nombreADN])
+        mutante_V = Detector.mutante_vertical(lista_ADN[nombreADN])
+        mutante_D = Detector.mutante_diagonal1(lista_ADN[nombreADN])
         ##print(mutante_H)
         ##print(mutante_V)
         print(mutante_D)
+    elif respuesta == 5:
+        nombreADN = input("Ingrese el nombre del ADN que desea ver\n")
+        print(f"El ADN '{nombreADN}' es: {lista_ADN[nombreADN]}")
