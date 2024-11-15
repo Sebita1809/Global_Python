@@ -16,6 +16,7 @@ while True:
             mostrar_matriz_ejemplo()
             ADN = input("Ahora ingrese el ADN de la siguiente forma: fila 1,fila 2,fila 3,... ¡RECUERDE QUE DEBE INGRESAR TODAS LAS FILAS SEPERADAS POR UNA ',' :\n").upper()
             ADN_lista = ADN.split(",")
+            print(ADN_lista)
             verificador = verificar_adn(ADN_lista)
             if verificador == None or verificador == []:
                 pass
@@ -29,9 +30,12 @@ while True:
         mutante_H = Detector.mutante_horizontal(lista_ADN[nombreADN])
         mutante_V = Detector.mutante_vertical(lista_ADN[nombreADN])
         mutante_D = Detector.mutante_diagonal1(lista_ADN[nombreADN])
+        matriz_invertida = Detector.invertir_matriz(ADN_lista)
+        mutante_D2 = Detector.mutante_diagonal1(matriz_invertida)
         ##print(mutante_H)
         ##print(mutante_V)
         print(mutante_D)
+        print(mutante_D2)
     elif respuesta == 5:
         nombreADN = input("Ingrese el nombre del ADN que desea ver\n")
         print(f"El ADN '{nombreADN}' es: {lista_ADN[nombreADN]}")

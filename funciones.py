@@ -41,3 +41,4 @@ def verificar_adn(ADN):
         print("Por favor ingrese nuevamente el ADN") if verificador > 0 else print("Su ADN se ha registrado correctamente")
         print(verificador)
         return [] if verificador > 0 else ADN
+    
