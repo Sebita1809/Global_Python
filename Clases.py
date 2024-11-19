@@ -1,21 +1,17 @@
 class Detector:
-    ADN = []
     def __init__(self, nombre, ADN):
         self.nombre = nombre
         self.ADN = ADN
         self.mutante = 0
-        self.mutante_H = self.mutante_horizontal()
-        self.mutante_V = self.mutante_vertical()
-        self.mutante_D = self.mutante_diagonal1()
-        self.mutante_D2 = self.mutante_diagonal2()
-        print(self.mutante_H)
-        print(self.mutante_V)
-        print(self.mutante_D)
-        print(self.mutante_D2)
-        print(self.mutante)
-        self.verificador()
+        self.mutante_horizontal()
+        self.mutante_vertical()
+        self.mutante_diagonal1()
+        self.mutante_diagonal2()
+        self.mostrar_mutantes()
 
-    
+    def mostrar_mutantes(self):
+        print(True) if self.mutante > 0 else print(False)
+
     def mutante_horizontal(self):
         ADN = self.ADN
         self.mutante += self.verificador(ADN)
@@ -71,7 +67,7 @@ class Detector:
 
             # ttattt,gggagg,ccccac,ttttta,ggggga,ccccca
 
-            # tttttt,aggggg,cacccc,ttattt,gggagg,ccccac
+            # tttttt,aggggg,cacccc,ttattt,gggagg,ccccac     
 
             # tttttt,gggggg,accccc,tatttt,ggaggg,cccacc
 
@@ -87,7 +83,6 @@ class Detector:
             arreglo = arreglo[i:i + 6]
             palabra = ''.join(palabra)
             matriz_invertida.append(palabra)
-        print(matriz_invertida)
         return matriz_invertida 
         
     def verificador(self, ADN):
