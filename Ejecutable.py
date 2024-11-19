@@ -26,14 +26,11 @@ while True:
                 break
     elif respuesta == 2:
         nombreADN = input("Ingrese un nombre para el ADN que desea escanear:\n").upper()
-        detector = Detector(nombreADN, ADN_lista)
-        ##mutante_H = Detector.mutante_horizontal(lista_ADN[nombreADN])
-        ##mutante_V = Detector.mutante_vertical(lista_ADN[nombreADN])
-        ##mutante_D = Detector.mutante_diagonal1(lista_ADN[nombreADN])
         matriz_invertida = Detector.invertir_matriz(ADN_lista)
-        ##mutante_D2 = Detector.mutante_diagonal1(matriz_invertida)
-        ##print(mutante_H)
-        ##print(mutante_V)
+        detector = Detector(nombreADN, ADN_lista, matriz_invertida)
+    elif respuesta == 3:
+        mutante = Mutador(ADN_lista).mostrar_menu()
+
     elif respuesta == 5:
         nombreADN = input("Ingrese el nombre del ADN que desea ver\n")
         print(f"El ADN '{nombreADN}' es: {lista_ADN[nombreADN]}")
