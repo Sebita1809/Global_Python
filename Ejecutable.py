@@ -27,8 +27,8 @@ while True:
     elif respuesta == 2:
         nombreADN = input("Ingrese un nombre para el ADN que desea escanear:\n").upper()
         detector = Detector(nombreADN, ADN_lista)
-        mutante_H = Detector.mutante_horizontal(lista_ADN[nombreADN])
-        mutante_V = Detector.mutante_vertical(lista_ADN[nombreADN])
+        ##mutante_H = Detector.mutante_horizontal(lista_ADN[nombreADN])
+        ##mutante_V = Detector.mutante_vertical(lista_ADN[nombreADN])
         mutante_D = Detector.mutante_diagonal1(lista_ADN[nombreADN])
         matriz_invertida = Detector.invertir_matriz(ADN_lista)
         mutante_D2 = Detector.mutante_diagonal1(matriz_invertida)

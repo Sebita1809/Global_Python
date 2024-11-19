@@ -3,77 +3,67 @@ class Detector:
     def __init__(self, nombre, ADN):
         self.nombre = nombre
         self.ADN = ADN
+        self.mutante = 0
+        self.mutante_H = self.mutante_horizontal()
+        self.mutante_V = self.mutante_vertical()
+        self.mutante_D = self.mutante_diagonal1()
+        self.mutante_D2 = self.mutante_diagonal2()
+        print(self.mutante_H)
+        print(self.mutante_V)
+        print(self.mutante_D)
+        print(self.mutante_D2)
+        print(self.mutante)
+        self.verificador()
+
     
-    def mutante_horizontal(ADN):
-        mutante = 0
-        encontrar_mutante = 0
-        for i in range(0 , len(ADN)):
-            palabra = ADN[i]
-            for j in range(0, len(ADN)-1):
-                incremento = 1
-                if palabra[j] == palabra[incremento]:
-                    encontrar_mutante += 1
-                else:
-                    encontrar_mutante = 0
-                incremento += 1
-                mutante += 1 if encontrar_mutante >= 4 else 0
-        return True if mutante > 0 else False
+    def mutante_horizontal(self):
+        ADN = self.ADN
+        self.mutante += self.verificador(ADN)
+        return True if self.verificador(ADN) == 1 else False
     
-    def mutante_vertical(ADN):
-        mutante = 0
+    def mutante_vertical(self):
         columna = []
-        encontrar_repeticiones = 0
-        for x in range(0, len(ADN)):
-            for i in range(0 , len(ADN)):
-                columna.append(ADN[i][x])
-                if len(columna) == 6:
-                    for j in range(0, len(columna)-1):
-                        incremento = 1
-                        if columna[j] == columna[incremento]:
-                            encontrar_repeticiones += 1
-                        else:
-                            encontrar_repeticiones = 0
-                        incremento += 1
-                        mutante += 1 if encontrar_repeticiones >= 4 else 0
-            columna = []
-        return True if mutante > 0 else False
+        columnas = []
+        for x in range(0, len(self.ADN)):
+            for i in range(0 , len(self.ADN)):
+                columna.append(self.ADN[i][x])
+                if len(columna)%6 == 0:
+                    palabra = ''.join(columna)
+                    columnas.append(palabra)
+                    columna = []
+        self.mutante += self.verificador(columnas)
+        return True if self.verificador(columnas) == 1 else False
 
-    def mutante_diagonal1(ADN):
-        mutante = 0
-        diagonales = {}    
+    def mutante_diagonal1(self):
+        diagonales = []    
         
-
-        for cl in range(len(ADN)):
-            numero_arreglo = 0
+        for cl in range(len(self.ADN)):
             diagonal = []
-            for fila in range(len(ADN)):
+            for fila in range(len(self.ADN)):
                 columna = cl + fila
-                if columna < len(ADN):
-                    diagonal.append(ADN[fila][columna])
+                if columna < len(self.ADN):
+                    diagonal.append(self.ADN[columna][fila])
                     if len(diagonal) >= (6 - cl) and cl <= 2:
-                        diagonales[numero_arreglo] = diagonal
-                        numero_arreglo += 1
-                        numero_arreglo + 1 if numero_arreglo == 3 else 0
+                        palabra = ''.join(diagonal)
+                        diagonales.append(palabra)
                         diagonal = []
-        mutante += Detector.verificador(diagonales)
-
-        for fi in range(len(ADN)):
-            numero_arreglo = 0
+        self.mutante += self.verificador(diagonales)
+        return True if self.verificador(diagonales) == 1 else False
+    
+    def mutante_diagonal2(self):
+        diagonales = []
+        for fi in range(len(self.ADN)):
             diagonal = []
-            for cl in range(len(ADN)):
+            for cl in range(len(self.ADN)):
                 fila = fi + cl
-                if fila < len(ADN):
-                    diagonal.append(ADN[fila][cl])
+                if fila < len(self.ADN):
+                    diagonal.append(self.ADN[cl][fila])
                 if len(diagonal) >= (6 - fi) and fi <= 2:
-                    diagonales[numero_arreglo] = diagonal
-                    numero_arreglo += 1
+                    palabra = ''.join(diagonal)
+                    diagonales.append(palabra)
                     diagonal = []                
-        mutante += Detector.verificador(diagonales)
-
-        if mutante >= 1:
-            return True
-        else:
-            return False
+        self.mutante += self.verificador(diagonales)
+        return True if self.verificador(diagonales) == 1 else False
 
             # attttt,gaaggg,ccaacc,tttaat,ggggaa,ccccca
 
@@ -100,13 +90,12 @@ class Detector:
         print(matriz_invertida)
         return matriz_invertida 
         
-    def verificador (diagonales):
-        encontrar_mutante = 0
-        for i in range(len(diagonales)):
-            diagonal = diagonales[i]
-            for j in range(0,len(diagonal)):
-                if j == 0:
-                    encontrar_mutante +=1 if diagonal[j] == diagonal[j+1] else 0
-                elif j != 6:
-                    encontrar_mutante +=1 if diagonal[j] == diagonal[j-1] else 0
-        return encontrar_mutante
+    def verificador(self, ADN):
+        for i in range(len(ADN)):
+            encontrar_mutante = 0
+            palabra = ADN[i]
+            for j in range(0,len(palabra)-1):
+                encontrar_mutante +=1 if palabra[j] == palabra[j+1] else 0
+            if encontrar_mutante >=3:
+                break
+        return 1 if encontrar_mutante >= 3 else 0
