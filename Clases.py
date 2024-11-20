@@ -1,24 +1,21 @@
 import random
 class Detector:
-    def __init__(self, nombre, ADN, ADN_invertido):
-        self.nombre = nombre
+    def __init__(self, ADN, ADN_invertido):
         self.ADN = ADN
         self.ADN_invertido = ADN_invertido
-        self.mutante = 0
-        self.columnas = self.columnas
+        self.mutantes_encontrados = 0
+        self.mutante = self.detectar_mutantes()
         self.mutante_horizontal()
         self.mutante_vertical()
         self.mutante_diagonal1()
         self.mutante_diagonal2()
-        self.detectar_mutantes()
 
     def detectar_mutantes(self):
-        print(True) if self.mutante > 0 else print(False)
+        return True if self.mutantes_encontrados > 0 else False
 
     def mutante_horizontal(self):
-        ADN = self.ADN
-        self.mutante += self.verificador(ADN)
-        return True if self.verificador(ADN) == 1 else False
+        self.mutante += self.verificador(self.ADN)
+        return True if self.verificador(self.ADN) == 1 else False
     
     def mutante_vertical(self):
         columna = []
@@ -30,7 +27,7 @@ class Detector:
                     palabra = ''.join(columna)
                     columnas.append(palabra)
                     columna = []
-        self.mutante += self.verificador(columnas)
+        self.mutantes_encontrados += self.verificador(columnas)
         return True if self.verificador(columnas) == 1 else False
 
     def mutante_diagonal1(self):
@@ -46,7 +43,7 @@ class Detector:
                         palabra = ''.join(diagonal)
                         diagonales.append(palabra)
                         diagonal = []
-        self.mutante += self.verificador(diagonales)
+        self.mutantes_encontrados += self.verificador(diagonales)
         return True if self.verificador(diagonales) == 1 else False
     
     def mutante_diagonal2(self):
@@ -61,7 +58,7 @@ class Detector:
                     palabra = ''.join(diagonal)
                     diagonales.append(palabra)
                     diagonal = []                
-        self.mutante += self.verificador(diagonales)
+        self.mutantes_encontrados += self.verificador(diagonales)
         return True if self.verificador(diagonales) == 1 else False
 
             # atatat,agagag,acacac,atatat,agagag,acacac
@@ -194,7 +191,6 @@ class Virus(Mutador):
         print(self.posicion_vertical)
         self.crear_mutante(self.base_nitrogenada, self.posicion_vertical)
 
-
     def definir_tipo_virus(self):
         print("""
             Seleccione la direccion del virus:
@@ -260,3 +256,32 @@ class Virus(Mutador):
             if tope == 4: break
         print(self.ADN)
 
+class Sanador:
+    def __init__(self, ADN, ADN_invertido):
+        self.ADN = ADN
+        self.bases_nitrogenadas = ["A","C","G","T"]
+        self.ADN_invertido = ADN_invertido
+        self.detectar_mutantes()
+        self.crear_ADN(self.bases_nitrogenadas)
+        self.mostrar_ADN_sano()
+
+    def detectar_mutantes(self):
+        detector = Detector(self.ADN, self.ADN_invertido)
+        return True if detector.detectar_mutantes() == True else False
+    
+    def crear_ADN(self, bases_nitrogenadas:list):
+        if self.detectar_mutantes() == True:
+            while self.detectar_mutantes() == True:
+                for i in range(0, 6):
+                    palabra = list(self.ADN[i])
+                    for j in range(len(palabra)):
+                        palabra[j] = random.choice(bases_nitrogenadas)
+                    palabra = ''.join(palabra)
+                    self.ADN[i] = palabra
+                self.ADN_invertido = Detector.invertir_matriz(self.ADN)
+                self.detectar_mutantes()
+            return self.ADN
+        else: return self.ADN
+
+    def mostrar_ADN_sano(self):
+        print(f"El ADN sanado se muestra a continuacion: {self.ADN}")
