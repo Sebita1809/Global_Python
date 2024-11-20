@@ -10,6 +10,9 @@ class Detector:
         self.mutante_diagonal1()
         self.mutante_diagonal2()
 
+    def crear_mutante(self):
+        pass
+
     def detectar_mutantes(self):
         return True if self.mutantes_encontrados > 0 else False
 
