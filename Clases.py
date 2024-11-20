@@ -64,7 +64,7 @@ class Detector:
         self.mutante += self.verificador(diagonales)
         return True if self.verificador(diagonales) == 1 else False
 
-            # atatat,gagaga,ccaacc,tttaat,agggaa,caccca
+            # atatat,agagag,acacac,atatat,agagag,acacac
 
             # tatttt,ggaggg,cccacc,ttttat,ggggga,cccccc
 
@@ -101,7 +101,7 @@ class Detector:
 class Mutador:
     def __init__(self, ADN):
         self.ADN = ADN
-        self.bases_nitrogenadas = ["A","C","G","T"]
+        self.base_nitrogenada = random.choice(["A","C","G","T"])
 
     def mostrar_menu(self):
         print("""
@@ -121,13 +121,13 @@ class Mutador:
 class Radiacion(Mutador):
     def __init__(self, ADN):
         super().__init__(ADN)
+        print(self.base_nitrogenada)
         self.posicion_horizontal = 0
         self.posicion_vertical = 0
-        print(self.ADN)
         self.tipo_radiacion = "" 
         self.indicar_tipo_radiacion()
         self.indicar_posiciones()
-        self.crear_mutante(self.bases_nitrogenadas, self.tipo_radiacion, self.posicion_vertical) if self.tipo_radiacion == "H" else self.crear_mutante(self.bases_nitrogenadas, self.tipo_radiacion, self.posicion_horizontal)
+        self.crear_mutante(self.base_nitrogenada, self.tipo_radiacion, self.posicion_vertical) if self.tipo_radiacion == "H" else self.crear_mutante(self.bases_nitrogenadas, self.tipo_radiacion, self.posicion_horizontal)
 
     def indicar_tipo_radiacion(self):
         while True:
@@ -146,22 +146,20 @@ class Radiacion(Mutador):
             print(self.tipo_radiacion)
             if self.tipo_radiacion == "H":
                 print(self.posicion_vertical)
-                if self.posicion_vertical > 3: 
+                if self.posicion_vertical > 2: 
                     print("Debido a que el largo de los mutante es de 4, no es compatible la posicion vertical ingresada")
                 else: 
                     condicion = False
             else:
-                if self.posicion_horizontal > 3: print("Debido a que el largo de los mutante es de 4, no es compatible la posicion horizontal ingresada")
+                if self.posicion_horizontal > 2: print("Debido a que el largo de los mutante es de 4, no es compatible la posicion horizontal ingresada")
                 else: break
 
-
-    def crear_mutante(self, bases_nitrogenadas:list, orientacion:str, posicion_inicial:int):
-        celula_nitrogenada = bases_nitrogenadas[random.randint(0,3)]
+    def crear_mutante(self, base_nitrogenada:str, orientacion:str, posicion_inicial:int):
         posicion = posicion_inicial
         if orientacion == "H":
-            self.radiacion_horizontal(celula_nitrogenada,posicion)
+            self.radiacion_horizontal(base_nitrogenada,posicion)
         else:
-            self.radiacion_vertical(celula_nitrogenada, posicion)
+            self.radiacion_vertical(base_nitrogenada, posicion)
 
     def radiacion_horizontal(self, celula_nitrogenada:str, posicion_inicial:int):
         tope = 0 
@@ -192,19 +190,73 @@ class Virus(Mutador):
         self.posicion_vertical = 0
         self.tipo_virus = ""
         self.definir_tipo_virus()
-        ##self.indicar_posiciones()
-        ##self.radiacion_horizontal() if self.tipo_radiacion() == "H" else self.radiacion_vertical()
+        self.definir_posicion()
+        print(self.posicion_vertical)
+        self.crear_mutante(self.base_nitrogenada, self.posicion_vertical)
+
 
     def definir_tipo_virus(self):
-        print(  """
-                Seleccione la direccion del virus:
-                1)- Izquierda a derecha
-                2)- Derecha a izquierda
-                """)
+        print("""
+            Seleccione la direccion del virus:
+            1)- Izquierda a derecha
+            2)- Derecha a izquierda
+            """)
         respuesta = int(input("Ingrese su respuesta:\n"))
         if respuesta == 1 or respuesta == 2:
             self.tipo_virus = "Normal" if respuesta == 1 else "Invertido"
         else:
             print("La opcion ingresada no es valida")
             self.definir_tipo_virus()
+    
+    def definir_posicion(self):
+        print("Desde que posicion vertical desea empezar el virus?")
+        self.posicion_vertical = int(input("Ingrese la posicion:\n"))
+        print("Desde que posicion horizontal desea empezar el virus?")
+        self.posicion_horizontal = int(input("Ingrese la posicion:\n"))
+        if self.posicion_horizontal > 2 or self.posicion_vertical > 2:
+            if self.tipo_virus == "Normal":
+                print("Debido a que los virus tienen una longitud de 4, las posiciones no pueden excederse de 2")
+                self.definir_posicion()
+        elif self.posicion_horizontal < 0 or self.posicion_vertical < 0:
+            print("Ha ingresado una posicion que no existe")
+            self.definir_posicion()
+        else: 
+            if self.tipo_virus == "Invertido":
+                print("Debido a que los virus tienen una longirud de 4, las posiciones no pueden ser menor de 3")
+                self.definir_posicion()
+
+    def crear_mutante(self, base_nitrogenada:str, posicion_inicial:int):
+        self.virus_diagonal(posicion_inicial, base_nitrogenada) if self.tipo_virus == "Normal" else self.virus_diagonal_invertida(posicion_inicial, base_nitrogenada)
+
+    def virus_diagonal(self, posicion_vertical:int, base_nitrogenada:str):
+        tope = 0
+        aumento = 1
+        for i in range(self.posicion_horizontal, len(self.ADN)-1):
+            palabra = list(self.ADN[i])
+            if i == self.posicion_horizontal:
+                palabra[posicion_vertical] = base_nitrogenada  
+            else: 
+                palabra[posicion_vertical+aumento] = base_nitrogenada
+                aumento += 1
+            tope += 1
+            palabra = ''.join(palabra)
+            self.ADN[i] = palabra
+            if tope == 4: break
+        print(self.ADN)
+    
+    def virus_diagonal_invertida(self, posicion_vertical:int, base_nitrogenada:str):
+        tope = 0
+        aumento = 1
+        for i in range(self.posicion_horizontal, len(self.ADN)-1):
+            palabra = list(self.ADN[i])
+            if i == self.posicion_horizontal:
+                palabra[posicion_vertical] = base_nitrogenada 
+            else:
+                palabra[posicion_vertical-aumento] = base_nitrogenada
+                aumento += 1
+            tope += 1
+            palabra = ''.join(palabra)
+            self.ADN[i] = palabra
+            if tope == 4: break
+        print(self.ADN)
 
