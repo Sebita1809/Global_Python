@@ -350,4 +350,4 @@ class Sanador:
     def mostrar_ADN_sano(self):
         print(f"El ADN sanado se muestra a continuacion: {self.sanar_mutantes(self.ADN)}")
 
-## Sebita pro
+## ---
