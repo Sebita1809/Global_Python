@@ -25,7 +25,6 @@ while True:
         ##taccta,taatat,gacacc,gtagtg,catcct,acgtcg
         Detector(ADN)
     elif respuesta == 3:
-        print("hola mundo")
         Mutador(ADN).registrar_respuesta()
     elif respuesta == 4:
         Sanador(ADN)
