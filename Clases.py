@@ -28,7 +28,7 @@ class Detector:
     def mutante_horizontal(self, ADN:list):
         return True if self.verificador(ADN) == 1 else False
 
-## Esta funcion genera un ADN, donde cada palabra("fila") está conformada por las columnas, luego se las envia al verificador
+## Esta funcion genera un lista, donde cada palabra("fila") está conformada por las columnas del ADN, luego se las envia al verificador
     def mutante_vertical(self, ADN:list):
         columna = []
         columnas = []
@@ -117,7 +117,7 @@ class Detector:
         return 1 if encontrar_mutante >= 3 else 0
 
 ## CLASE MUTADOR:
-## - Esta clase recibe el ADN y funciona como padre para las clases VIRUS y RADIACION. En esta clase, tambien
+## - Esta clase recibe el ADN y funciona como padre para las clases VIRUS y RADIACION. En esta clase, tambien se
 ## le pregunta al usuario que tipo de mutacion desea realizar
 class Mutador:
     def __init__(self, ADN):
@@ -169,11 +169,12 @@ class Radiacion(Mutador):
             else:
                 print("Se ingreso una opcion invalida")
 
-## Esta funcion se encarga de determinar las posiciones verticales y horizontales en las cuales insertará el ADN
+## Esta funcion se encarga de determinar las posiciones verticales y horizontales en las cuales insertará el mutante
     def indicar_posiciones(self):
         while True:
-            self.posicion_horizontal = int(input("Ingrese la posicion horizontal donde desea que comience el mutante:\n")) + 1
-            self.posicion_vertical = int(input("Ingrese la posicion vertical donde desea que comience el mutante:\n")) + 1
+            self.posicion_horizontal = int(input("Ingrese la posicion horizontal donde desea que comience el mutante:\n"))
+            self.posicion_vertical = int(input("Ingrese la posicion vertical donde desea que comience el mutante:\n"))
+            self.indicar_posiciones() if verificar_posiciones(self.posicion_horizontal, self.posicion_vertical) == True else None
             if self.tipo_radiacion == "H":
                 if self.posicion_vertical > 3: 
                     print("Debido a que el largo de los mutante es de 4, no es compatible la posicion vertical ingresada")
@@ -195,34 +196,25 @@ class Radiacion(Mutador):
     def radiacion_horizontal(self, celula_nitrogenada:str, posicion_inicial:int):
         tope = 0 
         palabra = list(self.ADN[self.posicion_horizontal - 1])
-        try:
-            for i in range((posicion_inicial - 1), len(palabra)):
-                palabra[i] = celula_nitrogenada
-                tope += 1
-                if tope == 4: break
-            palabra = ''.join(palabra)
-            self.ADN[self.posicion_horizontal - 1] = palabra
-            return self.ADN
-        except IndexError:
-            print("La/s posicion/es ingresada/s no consideran el tamaño del ADN o hacen que el mutante no pueda tener el largo minimo")
-            self.indicar_posiciones()
+        for i in range((posicion_inicial - 1), len(palabra)):
+            palabra[i] = celula_nitrogenada
+            tope += 1
+            if tope == 4: break
+        palabra = ''.join(palabra)
+        self.ADN[self.posicion_horizontal - 1] = palabra
+        return self.ADN
 
 ## Esta es la funcion encargada de insertar los mutantes de manera vertical
     def radiacion_vertical(self, celula_nitrogenada:str, posicion_inicial:int):
         tope = 0 
-        try:
-            for i in range((posicion_inicial - 1), len(self.ADN)):
-                palabra = list(self.ADN[i])
-                palabra[self.posicion_vertical - 1] = celula_nitrogenada
-                tope += 1
-                palabra = ''.join(palabra)
-                print(palabra)
-                self.ADN[i] = palabra
-                if tope == 4: break
-            return self.ADN
-        except IndexError:
-            print("La/s posicion/es ingresada/s no consideran el tamaño del ADN o hacen que el mutante no pueda tener el largo minimo")
-            self.indicar_posiciones()
+        for i in range((posicion_inicial - 1), len(self.ADN)):
+            palabra = list(self.ADN[i])
+            palabra[(self.posicion_vertical - 1)] = celula_nitrogenada
+            tope += 1
+            palabra = ''.join(palabra)
+            self.ADN[i] = palabra
+            if tope == 4: break
+        return self.ADN
 
 ## CLASE VIRUS:
 ## - Esta clase es hija de la clase MUTADOR, por lo que va a heredar sus atributos y metodos
@@ -263,9 +255,9 @@ class Virus(Mutador):
 ## A A A D D D                      D D D A A A
     def definir_posicion(self):
         print("Desde que posicion vertical desea empezar el virus?")
-        self.posicion_vertical = int(input("Ingrese la posicion:\n")) + 1
+        self.posicion_vertical = int(input("Ingrese la posicion:\n"))
         print("Desde que posicion horizontal desea empezar el virus?")
-        self.posicion_horizontal = int(input("Ingrese la posicion:\n")) + 1
+        self.posicion_horizontal = int(input("Ingrese la posicion:\n"))
         if self.posicion_horizontal > 2 or self.posicion_vertical > 2:
             if self.tipo_virus == "Normal":
                 print("Debido a que los virus tienen una longitud de 4, las posiciones no pueden excederse de 2")
@@ -284,42 +276,34 @@ class Virus(Mutador):
     def virus_diagonal(self, posicion_vertical:int, base_nitrogenada:str):
         tope = 0
         aumento = 1
-        try:
-            for i in range((self.posicion_horizontal - 1), (len(self.ADN)-1)):
-                palabra = list(self.ADN[i])
-                if i == self.posicion_horizontal - 1:
-                    palabra[posicion_vertical - 1] = base_nitrogenada  
-                else: 
-                    palabra[(posicion_vertical - 1) + aumento] = base_nitrogenada
-                    tope += 1
-                    palabra = ''.join(palabra)
-                    self.ADN[i] = palabra
-                    if tope == 4: break
-            return self.ADN
-        except IndexError:
-            print("La/s posicion/es ingresada/s no consideran el tamaño del ADN o hacen que el mutante no pueda tener el largo minimo")
-            self.indicar_posiciones()
+        for i in range((self.posicion_horizontal - 1), (len(self.ADN)-1)):
+            palabra = list(self.ADN[i])
+            if i == self.posicion_horizontal - 1:
+                palabra[posicion_vertical - 1] = base_nitrogenada  
+            else: 
+                palabra[(posicion_vertical - 1) + aumento] = base_nitrogenada
+                tope += 1
+                palabra = ''.join(palabra)
+                self.ADN[i] = palabra
+                if tope == 4: break
+        return self.ADN
 
 ## Esta funcion es la encargada de insertar los mutantes en las diagonales invertidas o secundarias
     def virus_diagonal_invertida(self, posicion_vertical:int, base_nitrogenada:str):
         tope = 0
         aumento = 1
-        try:
-            for i in range((self.posicion_horizontal - 1), (len(self.ADN)-1)):
-                palabra = list(self.ADN[i])
-                if i == self.posicion_horizontal - 1:
-                    palabra[posicion_vertical - 1] = base_nitrogenada 
-                else:
-                    palabra[(posicion_vertical - 1) -aumento] = base_nitrogenada
-                    aumento += 1
-                tope += 1
-                palabra = ''.join(palabra)
-                self.ADN[i] = palabra
-                if tope == 4: break
-            return self.ADN
-        except IndexError:
-            print("La/s posicion/es ingresada/s no consideran el tamaño del ADN o hacen que el mutante no pueda tener el largo minimo")
-            self.indicar_posiciones()
+        for i in range((self.posicion_horizontal - 1), (len(self.ADN)-1)):
+            palabra = list(self.ADN[i])
+            if i == self.posicion_horizontal - 1:
+                palabra[posicion_vertical - 1] = base_nitrogenada 
+            else:
+                palabra[(posicion_vertical - 1) -aumento] = base_nitrogenada
+                aumento += 1
+            tope += 1
+            palabra = ''.join(palabra)
+            self.ADN[i] = palabra
+            if tope == 4: break
+        return self.ADN
 
 ## CLASE SANADOR:
 ## - Esta clase recibe como parametro un ADN y debe verificar si posee o no mutantes

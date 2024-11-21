@@ -62,3 +62,10 @@ def mostrar_menu_virus():
         1)- Izquierda a derecha
         2)- Derecha a izquierda
         """)
+
+def verificar_posiciones(posicion1:int, posicion2:int):
+    if posicion1 < 0 or posicion1 > 6:
+        return True
+    elif posicion2 < 0 or posicion2 > 6:
+        return True
+    else: return False
