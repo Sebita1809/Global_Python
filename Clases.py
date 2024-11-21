@@ -1,5 +1,6 @@
 import random
 from funciones import *
+print("Hola munddo")
 
 ## CLASE DETECTOR:
 ## - Esta clase recibe un ADN (que es una lista) y retorna True si ha encontrado mutantes o False en el caso contrario
