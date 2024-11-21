@@ -22,13 +22,15 @@ while True:
                 print("El ADN se ingresó correctamente")
                 break
     elif respuesta == 2:
-        ##taccta,taatat,gacacc,gtagtg,catcct,acgtcg
+        ##taccta,taattt,gacacc,gtagtg,cttcct,acgtcg
         Detector(ADN)
     elif respuesta == 3:
         Mutador(ADN).registrar_respuesta()
     elif respuesta == 4:
         Sanador(ADN)
     elif respuesta == 5:
+        mostrar_en_formato_ADN(ADN)
+    elif respuesta == 6:
         print("Gracias por usar nuestro programa")
         print("Saliendo....")
         break

@@ -5,7 +5,8 @@ def inicializar_menu():
             2 - Detectar mutante
             3 - Mutar ADN
             4 - Sanar ADN
-            5 - Salir
+            5 - Mostrar en formato ADN
+            6 - Salir
         """)
 
 def mostrar_matriz_ejemplo():
@@ -19,6 +20,26 @@ def mostrar_matriz_ejemplo():
             A A A A A A -> fila 6
         """)
     print("Recuerde que las celulas nitrogenadas que conforman el ADN son: 'A' 'C' 'T' 'G'")
+
+def mostrar_en_formato_ADN(ADN):
+    for i in range(len(ADN)):
+        palabra = ' '.join(ADN[i])
+        print(palabra)
+
+def mostrar_menu_mutador():
+    print("""
+        Seleccionar el tipo de mutante que desea crear:
+        1)- Radiación
+        2)- Virus
+        3)- Salir
+        """)
+
+def mostrar_menu_virus():
+    print("""
+        Seleccione la direccion del virus:
+        1)- Izquierda a derecha
+        2)- Derecha a izquierda
+        """)
 
 def verificar_adn(ADN:list):
     celulas_nitrogenadas = "ACTG"
@@ -48,24 +69,11 @@ def invertir_matriz(ADN:list):
         matriz_invertida.append(palabra)
     return matriz_invertida
 
-def mostrar_menu_mutador():
-    print("""
-        Seleccionar el tipo de mutante que desea crear:
-        1)- Radiación
-        2)- Virus
-        3)- Salir
-        """)
-
-def mostrar_menu_virus():
-    print("""
-        Seleccione la direccion del virus:
-        1)- Izquierda a derecha
-        2)- Derecha a izquierda
-        """)
-
 def verificar_posiciones(posicion1:int, posicion2:int):
-    if posicion1 < 0 or posicion1 > 6:
+    if posicion1 <= 0 or posicion1 > 6:
+        print("La posicion ingresada es incompatible con largo del ADN")
         return True
-    elif posicion2 < 0 or posicion2 > 6:
+    elif posicion2 <= 0 or posicion2 > 6:
+        print("La posicion ingresada es incompatible con largo del ADN")
         return True
     else: return False

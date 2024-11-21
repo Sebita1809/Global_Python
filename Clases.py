@@ -1,6 +1,5 @@
 import random
 from funciones import *
-print("Hola munddo")
 
 ## CLASE DETECTOR:
 ## - Esta clase recibe un ADN (que es una lista) y retorna True si ha encontrado mutantes o False en el caso contrario
@@ -122,8 +121,9 @@ class Detector:
 ## le pregunta al usuario que tipo de mutacion desea realizar
 class Mutador:
     def __init__(self, ADN):
-        self.ADN = ADN
-        self.base_nitrogenada = random.choice(["A","C","G","T"])
+            self.ADN = ADN
+            self.base_nitrogenada = random.choice(["A","C","G","T"])
+            self.tipo_mutante = ""
 
 ## Funcion que herederá a las clases hijas
     def crear_mutante(self):
@@ -132,14 +132,23 @@ class Mutador:
 ## Esta funcion, llama a la funcion MOSTRAR_MENU_MUTADOR, para mostrarle el menu al ususario y que este seleccione
 ## el tipo de mutacion que desea realizar
     def registrar_respuesta(self):
-        mostrar_menu_mutador()
-        respuesta = int(input("Ingrese su respuesta:\n"))
-        if respuesta == 1:
-            Radiacion(self.ADN)
-        elif respuesta == 2:
-            Virus(self.ADN)
-        elif respuesta == 3:
-            print("Saliendo...")
+        try:
+            if not self.ADN:
+                raise ValueError
+            mostrar_menu_mutador()
+            respuesta = int(input("Ingrese su respuesta:\n"))
+            if respuesta == 1:
+                self.tipo_mutante = "Radiacion"
+                print(f"Entrando en la clase {self.tipo_mutante}...")
+                Radiacion(self.ADN)
+            elif respuesta == 2:
+                self.tipo_mutante = "Virus"
+                print(f"Entrando en la clase {self.tipo_mutante}...")
+                Virus(self.ADN)
+            elif respuesta == 3:
+                print("Saliendo...")
+        except ValueError:
+            print(f"Recuerde que debe ingresar un ADN primero")
 
 ## CLASE RADIACION:
 ## - Esta clase es hija de la clase MUTADOR, por lo que va a heredar sus atributos y metodos
@@ -255,17 +264,16 @@ class Virus(Mutador):
 ## A A D D D D                      D D D D A A
 ## A A A D D D                      D D D A A A
     def definir_posicion(self):
-        print("Desde que posicion vertical desea empezar el virus?")
-        self.posicion_vertical = int(input("Ingrese la posicion:\n"))
-        print("Desde que posicion horizontal desea empezar el virus?")
-        self.posicion_horizontal = int(input("Ingrese la posicion:\n"))
-        if self.posicion_horizontal > 2 or self.posicion_vertical > 2:
+        self.posicion_vertical = int(input("Desde que posicion vertical desea empezar el virus?\n"))
+        self.posicion_horizontal = int(input("Desde que posicion horizontal desea empezar el virus?\n"))
+        self.definir_posicion() if verificar_posiciones(self.posicion_horizontal, self.posicion_vertical) == True else None
+        if self.posicion_horizontal > 3 or self.posicion_vertical > 3:
             if self.tipo_virus == "Normal":
-                print("Debido a que los virus tienen una longitud de 4, las posiciones no pueden excederse de 2")
+                print("Debido a que los virus tienen una longitud de 4, las posiciones no pueden excederse de 3")
                 self.definir_posicion()
         else: 
             if self.tipo_virus == "Invertido":
-                print("Debido a que los virus tienen una longirud de 4, las posiciones no pueden ser menor de 3")
+                print("Debido a que los virus tienen una longirud de 4, las posiciones no pueden ser menor de 4")
                 self.definir_posicion()
 
 ## La funcion CREAR_MUTANTE se encarga de mostrar el ADN con las mutaciones insertadas de manera diagonal, dependiendo
@@ -277,23 +285,24 @@ class Virus(Mutador):
     def virus_diagonal(self, posicion_vertical:int, base_nitrogenada:str):
         tope = 0
         aumento = 1
-        for i in range((self.posicion_horizontal - 1), (len(self.ADN)-1)):
+        for i in range((self.posicion_horizontal - 1), (len(self.ADN))):
             palabra = list(self.ADN[i])
-            if i == self.posicion_horizontal - 1:
-                palabra[posicion_vertical - 1] = base_nitrogenada  
+            if i == (self.posicion_horizontal - 1):
+                palabra[(posicion_vertical - 1)] = base_nitrogenada  
             else: 
                 palabra[(posicion_vertical - 1) + aumento] = base_nitrogenada
-                tope += 1
-                palabra = ''.join(palabra)
-                self.ADN[i] = palabra
-                if tope == 4: break
+                aumento += 1
+            tope += 1
+            palabra = ''.join(palabra)
+            self.ADN[i] = palabra
+            if tope == 4: break
         return self.ADN
 
 ## Esta funcion es la encargada de insertar los mutantes en las diagonales invertidas o secundarias
     def virus_diagonal_invertida(self, posicion_vertical:int, base_nitrogenada:str):
         tope = 0
         aumento = 1
-        for i in range((self.posicion_horizontal - 1), (len(self.ADN)-1)):
+        for i in range((self.posicion_horizontal - 1), (len(self.ADN))):
             palabra = list(self.ADN[i])
             if i == self.posicion_horizontal - 1:
                 palabra[posicion_vertical - 1] = base_nitrogenada 
@@ -349,5 +358,3 @@ class Sanador:
 ## Esta funcion se encarga de mostrar por pantalla al ADN sanado (sin mutantes)
     def mostrar_ADN_sano(self):
         print(f"El ADN sanado se muestra a continuacion: {self.sanar_mutantes(self.ADN)}")
-
-## ---
