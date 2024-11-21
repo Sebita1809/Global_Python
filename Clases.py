@@ -349,3 +349,5 @@ class Sanador:
 ## Esta funcion se encarga de mostrar por pantalla al ADN sanado (sin mutantes)
     def mostrar_ADN_sano(self):
         print(f"El ADN sanado se muestra a continuacion: {self.sanar_mutantes(self.ADN)}")
+
+## Tobiassssss
