@@ -6,7 +6,7 @@ INTEGRANTES:
 - Diaz Moyano Sebastian
 
 COMO UTILIZAR EN PROGRAMA:
-1)- Se le mostrará por pantalla al usuario, el menú con las opciones a seleccionar 
+    Se le mostrará por pantalla al usuario, el menú con las opciones a seleccionar 
 
 OPCIONES:
 1)- En esta opcion se ingresará el ADN 
@@ -14,9 +14,12 @@ OPCIONES:
  1,2)- A continuación, se verificará que el ADN cumpla con los parametros establecidos
  1,3)- Si el ADN cumple con los parametros, se guardará en una variables, de lo contrario, se le pedirá 
     nuevamente que lo ingrese y asi sucesivamente, hasta que cumpla los parametros
-2)- En esta opcion, se mutará el ADN
- 2,1)- Se le muestra un menú al usuario, donde se le pregunta si quiere realizar Radiación o un Virus
- 2,2)- Dependiendo de la opcion ingresada por el usuario, se iniciará la clase Radiacion o Virus
+
+2)-En esta opcion se detectara el mutante que el usuario ingreso y retornara un true o un false segun tenga o no mutante
+
+3)- En esta opcion, se mutará el ADN
+ 3,1)- Se le muestra un menú al usuario, donde se le pregunta si quiere realizar Radiación o un Virus
+ 3,2)- Dependiendo de la opcion ingresada por el usuario, se iniciará la clase Radiacion o Virus
  CLASE RADIACION:
  1)- Se le solicita al usuario que ingrese si quiere insertar un mutante de manera horizontal('H') o vertical('V')
  2)- A continuación, se le solicitará que ingrese las posicion horizontal y vertical donde desea empezar el mutante a insertar
@@ -34,3 +37,17 @@ OPCIONES:
 
    2)- A continuacion, se le solicitará al usuario que ingrese las posiciones donde desea insertar el mutante
    3)- Finalmente, se mostrará el ADN con los mutantes insertados diagonalemente
+
+4)- En esta opcion el programa detectara los mutantes y sus pocisiones para modificar el ADN y asi mismo "sanarlo"
+
+5)-En esta opcion el programa muesta el adn con su respectivo formato por ejemplo: 
+ADN = ["AAAAAA","CCCCCC","TTTTTT","GGGGGG","AAAAAA","CCCCCC"]
+              =====
+            A A A A A A
+            C C C C C C 
+            T T T T T T 
+            G G G G G G 
+            A A A A A A 
+            C C C C C C
+
+6)-En esta opcion el programa finaliza.
