@@ -170,7 +170,7 @@ class Radiacion(Mutador):
                 self.indicar_posiciones()
                 self.crear_mutante(self.base_nitrogenada, self.tipo_radiacion, self.posicion_vertical) if self.tipo_radiacion == "H" else self.crear_mutante(self.base_nitrogenada, self.tipo_radiacion, self.posicion_horizontal)
             except ValueError:
-                print("Recuerde que debe ingresar un ADN primero")
+                print("Recuerde que debe ingresar un ADN primero o un caracter valido como posicion")
 
 ## Esta funcion se encarga de determinar si los mutantes a insertar van a ser verticales u horizontales
     def indicar_tipo_radiacion(self):
@@ -245,7 +245,7 @@ class Virus(Mutador):
             self.definir_posicion()
             self.crear_mutante(self.base_nitrogenada, self.posicion_vertical)
         except ValueError:
-            print("Recuerde que debe ingresar un ADN primero")
+            print("Recuerde que debe ingresar un ADN primero o un caracter valido como posicion")
 
 ## Esta funcion va a determinar si el mutante a insertar va a ser en las diagonales normales o en las invertidas/secundarias
     def definir_tipo_virus(self):

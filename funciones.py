@@ -75,10 +75,10 @@ def invertir_matriz(ADN:list):
 
 ## Esta funcion se encarga de verificar que las posiciones que ingrese en usuario sean acordes al tamaño del ADN
 def verificar_posiciones(posicion1:int, posicion2:int):
-    if posicion1 <= 0 or posicion1 > 6:
+    if posicion1 <= 0 or posicion1 > 6 or posicion1 == None:
         print("La posicion ingresada es incompatible con largo del ADN")
         return True
-    elif posicion2 <= 0 or posicion2 > 6:
+    elif posicion2 <= 0 or posicion2 > 6 or posicion2 == None:
         print("La posicion ingresada es incompatible con largo del ADN")
         return True
     else: return False
