@@ -8,7 +8,7 @@ INTEGRANTES:
 COMO UTILIZAR EN PROGRAMA:
     Se le mostrará por pantalla al usuario, el menú con las opciones a seleccionar 
 
-OPCIONES:
+OPCIONES:\n
 1)- En esta opcion se ingresará el ADN 
 
  1,1)- Se le explicará al usuario como es el formato de un ADN y como debe ingresar el ADN en el programa
