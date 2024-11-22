@@ -62,6 +62,8 @@ OPCIONES:
 
    ![image](https://github.com/user-attachments/assets/31a6a3d5-4a57-4427-b4ac-e0f7f47643b4)
 
+   ACLARACIÓN: como se muestra en las imagenes anteriores, nosotros comprendimos que las diagonales de una matriz pueden ser tanto la principal, como la secundarias y aquellas donde se pueda insertar un mutante de 4
+
 
    V2)- Se le solicitará al usuario que ingrese las posiciones donde desea insertar el mutante
    
