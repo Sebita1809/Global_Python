@@ -1,9 +1,7 @@
 from funciones import *
 from Clases import *
 
-##TGTTTT,GTGGCG,CCGTAA,AGGGCA,CGGCCC,CGAACC
-##TACAAG,GAGTGG,CACGGC,TTGGCA,GGCCGA,GTCTAT
-
+## ADN es la variable que contendrá el ADN que ingrese el usuario
 ADN = []
 ## El programa se ejecutará siempre y cuando el usuario no selecccione la opcion salir (opcion 6)
 while True:
