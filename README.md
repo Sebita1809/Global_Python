@@ -54,7 +54,8 @@ OPCIONES:
 4)- En esta opcion el programa detectara los mutantes y sus pocisiones para modificar el ADN y asi mismo "sanarlo"
 
 5)-En esta opcion el programa muesta el adn con su respectivo formato por ejemplo: 
-ADN = ["AAAAAA","CCCCCC","TTTTTT","GGGGGG","AAAAAA","CCCCCC"]
+
+    ADN = ["AAAAAA","CCCCCC","TTTTTT","GGGGGG","AAAAAA","CCCCCC"]
               =====
             A A A A A A
             C C C C C C 
