@@ -1,6 +1,8 @@
 from funciones import *
 from Clases import *
 
+##TGTTTT,GTGGCG,CCGTAA,AGGGCA,CGGCCC,CGAACC
+##TACAAC,GAGTCG,CACAGC,TTCGCA,GCCCGA,TTCTAT
 ADN = []
 while True:
     inicializar_menu()
@@ -22,8 +24,9 @@ while True:
                 print("El ADN se ingresó correctamente")
                 break
     elif respuesta == 2:
-        ##taccta,taattt,gacacc,gtagtg,cttcct,acgtcg
+        print(ADN)
         Detector(ADN)
+        ##print("Se detectaron mutantes en el ADN ingresado") if detector.detectar_mutantes(ADN) == True else print("No se detectaron mutantes en el ADN ingresado")
     elif respuesta == 3:
         Mutador(ADN).registrar_respuesta()
     elif respuesta == 4:

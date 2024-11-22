@@ -26,6 +26,7 @@ class Detector:
 
 ## La funcion MUTANTE_HORIZONTAL envia el ADN a un verificador
     def mutante_horizontal(self, ADN:list):
+        self.mutantes_encontrados += self.verificador(ADN)
         return True if self.verificador(ADN) == 1 else False
 
 ## Esta funcion genera un lista, donde cada palabra("fila") está conformada por las columnas del ADN, luego se las envia al verificador
@@ -35,7 +36,7 @@ class Detector:
         for x in range(0, len(ADN)):
             for i in range(0 , len(ADN)):
                 columna.append(ADN[i][x])
-                if len(columna)%6 == 0:
+                if len(columna) == 5:
                     palabra = ''.join(columna)
                     columnas.append(palabra)
                     columna = []
@@ -111,7 +112,9 @@ class Detector:
             encontrar_mutante = 0
             palabra = ADN[i]
             for j in range(0,len(palabra)-1):
-                encontrar_mutante +=1 if palabra[j] == palabra[j+1] else 0
+                if palabra[j] == palabra[j+1]:
+                    encontrar_mutante += 1 
+                else: encontrar_mutante = 0
             if encontrar_mutante >=3:
                 break
         return 1 if encontrar_mutante >= 3 else 0
@@ -353,6 +356,7 @@ class Sanador:
                 self.ADN_invertido = invertir_matriz(ADN)
                 self.ADN = ADN
                 self.detectar_mutantes(ADN)
+                self.detectar_mutantes(self.ADN_invertido)
         return self.ADN
 
 ## Esta funcion se encarga de mostrar por pantalla al ADN sanado (sin mutantes)
