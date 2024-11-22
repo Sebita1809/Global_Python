@@ -34,7 +34,7 @@ OPCIONES:
  
   1,3)- Si el ADN cumple con los parámetros, se guardará en una variables, de lo contrario, se le pedirá nuevamente que lo ingrese y así sucesivamente, hasta que cumpla los parámetros
 
-2)- En esta opción se detectar+an mutantes en el ADN que el usuario ingresó y retornará true o false segun tenga o no mutante. Los mutantes son células nitrogenadas repetidas por lo menos 4 veces de manera continua (una despues de la otra) en cualquier dirección (Vertical, Horizontal y Diagonal)
+2)- En esta opción se detectaran mutantes en el ADN que el usuario ingresó y retornará true o false segun tenga o no mutante. Los mutantes son células nitrogenadas repetidas por lo menos 4 veces de manera continua (una despues de la otra) en cualquier dirección (Vertical, Horizontal y Diagonal)
 
 3)- En esta opción, se mutará el ADN
  
